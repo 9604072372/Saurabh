@@ -1,0 +1,17 @@
+# for this first import two library i.e 
+1. import request
+2. import bs4 after running the command make sure restart the kernel in jupyter notebook
+
+
+
+import requests 
+from bs4 import BeautifulSoup
+n=str(input("enter the city country or any city name:"))
+search =f'weather in{n}'
+url=f'https://www.google.com/search?&q={search}'
+req=requests.get(url)
+
+soup=BeautifulSoup(req.text,"html.parser")
+
+temp=soup.find('div',class_='BNeawe').text
+print("the temprature is: "temp)
