@@ -1,0 +1,31 @@
+import numpy as np
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+
+df=pd.read_csv("delivery_time.csv")
+df.columns
+# step 1
+x=df[['Delivery Time']]
+y=df['Sorting Time']
+plt.scatter(x,y)
+
+# step 2
+
+xtrain,xtest,ytrain,ytest=train_test_split(x,y,test_size=0.2)
+
+# step 3
+
+model = LinearRegression()
+model.fit(xtrain,ytrain)
+
+#step 4 prediction
+ypred = model.predict(xtest)
+data = pd.DataFrame({"Actual":ytest,"predicted":ypred})
+print(data)
+print("the intercept is: ",model.intercept_)
+print("the R square or accuracy is:",model.score(xtrain,ytrain))
+print("the accuracy for xtest and ytest is: ",model.score(xtest,ytest))
+print("the slope or coefficient is:",model.coef_)
+plt.plot(xtest,ypred,color="r",marker="*")
