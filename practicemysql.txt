@@ -1,0 +1,913 @@
+Microsoft Windows [Version 10.0.17763.195]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u root -p
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.23 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| abc                |
+| asd                |
+| information_schema |
+| lmn                |
+| mydata             |
+| myfirst            |
+| myfirstdatabase    |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
+| xyz                |
++--------------------+
+13 rows in set (0.35 sec)
+
+mysql> use xyz
+Database changed
+mysql> create table emp(
+    -> e_id int not null,
+    -> e_name varchar(50),
+    -> e_salary int,
+    -> e_age int,
+    -> e_gender varchar(20),
+    -> e_gender1 varchar(20)
+    -> e_dept varchar(10)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'e_dept varchar(10)
+)' at line 8
+mysql> create table emp(
+    -> e_id int not null,
+    -> e_name varchar(50),
+    -> e_age int,
+    -> e_gender varchar(20),
+    -> e_dept varchar(10)
+    -> primary key(e_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(e_id))' at line 7
+mysql> create table emp(
+    -> e_id int not null primary key,
+    -> e_name varchar(50),
+    -> e_age int,
+    -> e_gender varchar(20),
+    -> e_dept varchar(10));
+Query OK, 0 rows affected (3.38 sec)
+
+mysql> insert into emp values(1,'saurabh',22,'male','IT');
+Query OK, 1 row affected (0.19 sec)
+
+mysql> insert into emp values(2,'bakul',25,'male','en&tc');
+Query OK, 1 row affected (0.30 sec)
+
+mysql> insert into emp values(3,'prem',28,'male,'automobile'),(4,'prerana','24','female','IT);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'automobile'),(4,'prerana','24','female','IT)' at line 1
+mysql> insert into emp values((3,'prem',28,'male,'automobile'),(4,'prerana','24','female','IT));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'automobile'),(4,'prerana','24','female','IT))' at line 1
+mysql> insert into emp values(3,'swapnil',28,'male','pharmacy');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into emp values(4,'rahul',25,'male','comp');
+Query OK, 1 row affected (0.19 sec)
+
+mysql> insert into emp values(5,'rasika',25,'female','electrical');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> show tables;
++---------------+
+| Tables_in_xyz |
++---------------+
+| emp           |
++---------------+
+1 row in set (0.18 sec)
+
+mysql> select * from emp;
++------+---------+-------+----------+------------+
+| e_id | e_name  | e_age | e_gender | e_dept     |
++------+---------+-------+----------+------------+
+|    1 | saurabh |    22 | male     | IT         |
+|    2 | bakul   |    25 | male     | en&tc      |
+|    3 | swapnil |    28 | male     | pharmacy   |
+|    4 | rahul   |    25 | male     | comp       |
+|    5 | rasika  |    25 | female   | electrical |
++------+---------+-------+----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select e_age from emp;
++-------+
+| e_age |
++-------+
+|    22 |
+|    25 |
+|    28 |
+|    25 |
+|    25 |
++-------+
+5 rows in set (0.00 sec)
+
+mysql> select e_dept from emp;
++------------+
+| e_dept     |
++------------+
+| IT         |
+| en&tc      |
+| pharmacy   |
+| comp       |
+| electrical |
++------------+
+5 rows in set (0.00 sec)
+
+mysql> select e_age,e_dept from emp;
++-------+------------+
+| e_age | e_dept     |
++-------+------------+
+|    22 | IT         |
+|    25 | en&tc      |
+|    28 | pharmacy   |
+|    25 | comp       |
+|    25 | electrical |
++-------+------------+
+5 rows in set (0.00 sec)
+
+mysql>  select Distinct e_age from emp;
++-------+
+| e_age |
++-------+
+|    22 |
+|    25 |
+|    28 |
++-------+
+3 rows in set (0.03 sec)
+
+mysql> select * from emp;
++------+---------+-------+----------+------------+
+| e_id | e_name  | e_age | e_gender | e_dept     |
++------+---------+-------+----------+------------+
+|    1 | saurabh |    22 | male     | IT         |
+|    2 | bakul   |    25 | male     | en&tc      |
+|    3 | swapnil |    28 | male     | pharmacy   |
+|    4 | rahul   |    25 | male     | comp       |
+|    5 | rasika  |    25 | female   | electrical |
++------+---------+-------+----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select Distinct e_age from emp;
++-------+
+| e_age |
++-------+
+|    22 |
+|    25 |
+|    28 |
++-------+
+3 rows in set (0.00 sec)
+
+mysql> select Distinct e_age='female' from emp;
++----------------+
+| e_age='female' |
++----------------+
+|              0 |
++----------------+
+1 row in set, 1 warning (0.06 sec)
+
+mysql> select Distinct e_age='male' from emp;
++--------------+
+| e_age='male' |
++--------------+
+|            0 |
++--------------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> select distinct e_gender from emp;
++----------+
+| e_gender |
++----------+
+| male     |
+| female   |
++----------+
+2 rows in set (0.00 sec)
+
+mysql> select distinct e_name from emp;
++---------+
+| e_name  |
++---------+
+| saurabh |
+| bakul   |
+| swapnil |
+| rahul   |
+| rasika  |
++---------+
+5 rows in set (0.00 sec)
+
+mysql> insert into emp values(6,'swapnil',28,'male','pharmacy');
+Query OK, 1 row affected (0.14 sec)
+
+mysql> select distinct e_name from emp;
++---------+
+| e_name  |
++---------+
+| saurabh |
+| bakul   |
+| swapnil |
+| rahul   |
+| rasika  |
++---------+
+5 rows in set (0.04 sec)
+
+mysql> select * from emp;
++------+---------+-------+----------+------------+
+| e_id | e_name  | e_age | e_gender | e_dept     |
++------+---------+-------+----------+------------+
+|    1 | saurabh |    22 | male     | IT         |
+|    2 | bakul   |    25 | male     | en&tc      |
+|    3 | swapnil |    28 | male     | pharmacy   |
+|    4 | rahul   |    25 | male     | comp       |
+|    5 | rasika  |    25 | female   | electrical |
+|    6 | swapnil |    28 | male     | pharmacy   |
++------+---------+-------+----------+------------+
+6 rows in set (0.00 sec)
+
+mysql> insert into emp values(7,'raj',29,'male','pharmacy');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select e_name from emp;
++---------+
+| e_name  |
++---------+
+| saurabh |
+| bakul   |
+| swapnil |
+| rahul   |
+| rasika  |
+| swapnil |
+| raj     |
++---------+
+7 rows in set (0.00 sec)
+
+mysql> slect distinct e_age fom emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'slect distinct e_age fom emp' at line 1
+mysql> slect distinct e_age from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'slect distinct e_age from emp' at line 1
+mysql> select distinct e_age from emp;
++-------+
+| e_age |
++-------+
+|    22 |
+|    25 |
+|    28 |
+|    29 |
++-------+
+4 rows in set (0.00 sec)
+
+mysql> select  e_age from emp;
++-------+
+| e_age |
++-------+
+|    22 |
+|    25 |
+|    28 |
+|    25 |
+|    25 |
+|    28 |
+|    29 |
++-------+
+7 rows in set (0.00 sec)
+
+mysql> select e_age from emp where e_age>25;
++-------+
+| e_age |
++-------+
+|    28 |
+|    28 |
+|    29 |
++-------+
+3 rows in set (0.05 sec)
+
+mysql> select e_age from emp where e_age<28;
++-------+
+| e_age |
++-------+
+|    22 |
+|    25 |
+|    25 |
+|    25 |
++-------+
+4 rows in set (0.00 sec)
+
+mysql> select distinct e_age from emp where e_age<22;
+Empty set (0.00 sec)
+
+mysql> select distinct e_age from emp where e_age>22;
++-------+
+| e_age |
++-------+
+|    25 |
+|    28 |
+|    29 |
++-------+
+3 rows in set (0.00 sec)
+
+mysql> select e_name fromemp;
+ERROR 1054 (42S22): Unknown column 'e_name' in 'field list'
+mysql> selecyt * from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selecyt * from emp' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| abc                |
+| asd                |
+| information_schema |
+| lmn                |
+| mydata             |
+| myfirst            |
+| myfirstdatabase    |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
+| xyz                |
++--------------------+
+13 rows in set (0.07 sec)
+
+mysql> use xyz;
+Database changed
+mysql> show tables;
++---------------+
+| Tables_in_xyz |
++---------------+
+| emp           |
++---------------+
+1 row in set (0.02 sec)
+
+mysql> select * from emp;
++------+---------+-------+----------+------------+
+| e_id | e_name  | e_age | e_gender | e_dept     |
++------+---------+-------+----------+------------+
+|    1 | saurabh |    22 | male     | IT         |
+|    2 | bakul   |    25 | male     | en&tc      |
+|    3 | swapnil |    28 | male     | pharmacy   |
+|    4 | rahul   |    25 | male     | comp       |
+|    5 | rasika  |    25 | female   | electrical |
+|    6 | swapnil |    28 | male     | pharmacy   |
+|    7 | raj     |    29 | male     | pharmacy   |
++------+---------+-------+----------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select e_name from emp;
++---------+
+| e_name  |
++---------+
+| saurabh |
+| bakul   |
+| swapnil |
+| rahul   |
+| rasika  |
+| swapnil |
+| raj     |
++---------+
+7 rows in set (0.00 sec)
+
+mysql> select e_name,e_age from emp;
++---------+-------+
+| e_name  | e_age |
++---------+-------+
+| saurabh |    22 |
+| bakul   |    25 |
+| swapnil |    28 |
+| rahul   |    25 |
+| rasika  |    25 |
+| swapnil |    28 |
+| raj     |    29 |
++---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> select e_age from emp where e_age>25;
++-------+
+| e_age |
++-------+
+|    28 |
+|    28 |
+|    29 |
++-------+
+3 rows in set (0.00 sec)
+
+mysql> * from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '* from emp' at line 1
+mysql> select * from emp;
++------+---------+-------+----------+------------+
+| e_id | e_name  | e_age | e_gender | e_dept     |
++------+---------+-------+----------+------------+
+|    1 | saurabh |    22 | male     | IT         |
+|    2 | bakul   |    25 | male     | en&tc      |
+|    3 | swapnil |    28 | male     | pharmacy   |
+|    4 | rahul   |    25 | male     | comp       |
+|    5 | rasika  |    25 | female   | electrical |
+|    6 | swapnil |    28 | male     | pharmacy   |
+|    7 | raj     |    29 | male     | pharmacy   |
++------+---------+-------+----------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select distinct e_name from emp;
++---------+
+| e_name  |
++---------+
+| saurabh |
+| bakul   |
+| swapnil |
+| rahul   |
+| rasika  |
+| raj     |
++---------+
+6 rows in set (0.00 sec)
+
+mysql> select e_age  from emp;
++-------+
+| e_age |
++-------+
+|    22 |
+|    25 |
+|    28 |
+|    25 |
+|    25 |
+|    28 |
+|    29 |
++-------+
+7 rows in set (0.00 sec)
+
+mysql> select e_age from emp where e_age>=29;
++-------+
+| e_age |
++-------+
+|    29 |
++-------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp;
++------+---------+-------+----------+------------+
+| e_id | e_name  | e_age | e_gender | e_dept     |
++------+---------+-------+----------+------------+
+|    1 | saurabh |    22 | male     | IT         |
+|    2 | bakul   |    25 | male     | en&tc      |
+|    3 | swapnil |    28 | male     | pharmacy   |
+|    4 | rahul   |    25 | male     | comp       |
+|    5 | rasika  |    25 | female   | electrical |
+|    6 | swapnil |    28 | male     | pharmacy   |
+|    7 | raj     |    29 | male     | pharmacy   |
++------+---------+-------+----------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select e_id from emp;
++------+
+| e_id |
++------+
+|    1 |
+|    2 |
+|    3 |
+|    4 |
+|    5 |
+|    6 |
+|    7 |
++------+
+7 rows in set (0.00 sec)
+
+mysql> select e_id=2 from emp;
++--------+
+| e_id=2 |
++--------+
+|      0 |
+|      1 |
+|      0 |
+|      0 |
+|      0 |
+|      0 |
+|      0 |
++--------+
+7 rows in set (0.00 sec)
+
+mysql> select e_id=2 from emp where e_id=2;
++--------+
+| e_id=2 |
++--------+
+|      1 |
++--------+
+1 row in set (0.05 sec)
+
+mysql> select * from emp where e_id=2;
++------+--------+-------+----------+--------+
+| e_id | e_name | e_age | e_gender | e_dept |
++------+--------+-------+----------+--------+
+|    2 | bakul  |    25 | male     | en&tc  |
++------+--------+-------+----------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp where e_name='swapnil';
++------+---------+-------+----------+----------+
+| e_id | e_name  | e_age | e_gender | e_dept   |
++------+---------+-------+----------+----------+
+|    3 | swapnil |    28 | male     | pharmacy |
+|    6 | swapnil |    28 | male     | pharmacy |
++------+---------+-------+----------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select * from emp where e_id =3;
++------+---------+-------+----------+----------+
+| e_id | e_name  | e_age | e_gender | e_dept   |
++------+---------+-------+----------+----------+
+|    3 | swapnil |    28 | male     | pharmacy |
++------+---------+-------+----------+----------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp where e_age between 22 and 29;
++------+---------+-------+----------+------------+
+| e_id | e_name  | e_age | e_gender | e_dept     |
++------+---------+-------+----------+------------+
+|    1 | saurabh |    22 | male     | IT         |
+|    2 | bakul   |    25 | male     | en&tc      |
+|    3 | swapnil |    28 | male     | pharmacy   |
+|    4 | rahul   |    25 | male     | comp       |
+|    5 | rasika  |    25 | female   | electrical |
+|    6 | swapnil |    28 | male     | pharmacy   |
+|    7 | raj     |    29 | male     | pharmacy   |
++------+---------+-------+----------+------------+
+7 rows in set (0.05 sec)
+
+mysql> select * from emp where e_name between 'saurabh' and 'rahul';
+Empty set (0.00 sec)
+
+mysql> select * from emp where e_dept like 'p%';
++------+---------+-------+----------+----------+
+| e_id | e_name  | e_age | e_gender | e_dept   |
++------+---------+-------+----------+----------+
+|    3 | swapnil |    28 | male     | pharmacy |
+|    6 | swapnil |    28 | male     | pharmacy |
+|    7 | raj     |    29 | male     | pharmacy |
++------+---------+-------+----------+----------+
+3 rows in set (0.03 sec)
+
+mysql> select * from emp where e_name like '%s';
+Empty set (0.00 sec)
+
+mysql> select * from emp where e_name like 's%';
++------+---------+-------+----------+----------+
+| e_id | e_name  | e_age | e_gender | e_dept   |
++------+---------+-------+----------+----------+
+|    1 | saurabh |    22 | male     | IT       |
+|    3 | swapnil |    28 | male     | pharmacy |
+|    6 | swapnil |    28 | male     | pharmacy |
++------+---------+-------+----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from emp where e_dept in ('IT','pharamacy');
++------+---------+-------+----------+--------+
+| e_id | e_name  | e_age | e_gender | e_dept |
++------+---------+-------+----------+--------+
+|    1 | saurabh |    22 | male     | IT     |
++------+---------+-------+----------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp where e_dept in ('IT','pharmacy');
++------+---------+-------+----------+----------+
+| e_id | e_name  | e_age | e_gender | e_dept   |
++------+---------+-------+----------+----------+
+|    1 | saurabh |    22 | male     | IT       |
+|    3 | swapnil |    28 | male     | pharmacy |
+|    6 | swapnil |    28 | male     | pharmacy |
+|    7 | raj     |    29 | male     | pharmacy |
++------+---------+-------+----------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from emp where e_name='saurabh' and e_gender='male';
++------+---------+-------+----------+--------+
+| e_id | e_name  | e_age | e_gender | e_dept |
++------+---------+-------+----------+--------+
+|    1 | saurabh |    22 | male     | IT     |
++------+---------+-------+----------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp where e_name='swapnil' and e_age=28;
++------+---------+-------+----------+----------+
+| e_id | e_name  | e_age | e_gender | e_dept   |
++------+---------+-------+----------+----------+
+|    3 | swapnil |    28 | male     | pharmacy |
+|    6 | swapnil |    28 | male     | pharmacy |
++------+---------+-------+----------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select * from emp where e_age=28 or e_age='IT';
++------+---------+-------+----------+----------+
+| e_id | e_name  | e_age | e_gender | e_dept   |
++------+---------+-------+----------+----------+
+|    3 | swapnil |    28 | male     | pharmacy |
+|    6 | swapnil |    28 | male     | pharmacy |
++------+---------+-------+----------+----------+
+2 rows in set, 1 warning (0.03 sec)
+
+mysql> select * from emp where not e_name='saurabh';
++------+---------+-------+----------+------------+
+| e_id | e_name  | e_age | e_gender | e_dept     |
++------+---------+-------+----------+------------+
+|    2 | bakul   |    25 | male     | en&tc      |
+|    3 | swapnil |    28 | male     | pharmacy   |
+|    4 | rahul   |    25 | male     | comp       |
+|    5 | rasika  |    25 | female   | electrical |
+|    6 | swapnil |    28 | male     | pharmacy   |
+|    7 | raj     |    29 | male     | pharmacy   |
++------+---------+-------+----------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from emp where not e_gender='female';
++------+---------+-------+----------+----------+
+| e_id | e_name  | e_age | e_gender | e_dept   |
++------+---------+-------+----------+----------+
+|    1 | saurabh |    22 | male     | IT       |
+|    2 | bakul   |    25 | male     | en&tc    |
+|    3 | swapnil |    28 | male     | pharmacy |
+|    4 | rahul   |    25 | male     | comp     |
+|    6 | swapnil |    28 | male     | pharmacy |
+|    7 | raj     |    29 | male     | pharmacy |
++------+---------+-------+----------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select * from emp where not e_dept='pharmacy';
++------+---------+-------+----------+------------+
+| e_id | e_name  | e_age | e_gender | e_dept     |
++------+---------+-------+----------+------------+
+|    1 | saurabh |    22 | male     | IT         |
+|    2 | bakul   |    25 | male     | en&tc      |
+|    4 | rahul   |    25 | male     | comp       |
+|    5 | rasika  |    25 | female   | electrical |
++------+---------+-------+----------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from emp orderby e_dept;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'e_dept' at line 1
+mysql> select * from emp order by e_dept;
++------+---------+-------+----------+------------+
+| e_id | e_name  | e_age | e_gender | e_dept     |
++------+---------+-------+----------+------------+
+|    4 | rahul   |    25 | male     | comp       |
+|    5 | rasika  |    25 | female   | electrical |
+|    2 | bakul   |    25 | male     | en&tc      |
+|    1 | saurabh |    22 | male     | IT         |
+|    3 | swapnil |    28 | male     | pharmacy   |
+|    6 | swapnil |    28 | male     | pharmacy   |
+|    7 | raj     |    29 | male     | pharmacy   |
++------+---------+-------+----------+------------+
+7 rows in set (0.04 sec)
+
+mysql> select * from emp order by e_name;
++------+---------+-------+----------+------------+
+| e_id | e_name  | e_age | e_gender | e_dept     |
++------+---------+-------+----------+------------+
+|    2 | bakul   |    25 | male     | en&tc      |
+|    4 | rahul   |    25 | male     | comp       |
+|    7 | raj     |    29 | male     | pharmacy   |
+|    5 | rasika  |    25 | female   | electrical |
+|    1 | saurabh |    22 | male     | IT         |
+|    3 | swapnil |    28 | male     | pharmacy   |
+|    6 | swapnil |    28 | male     | pharmacy   |
++------+---------+-------+----------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from emp order by e_name des;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'des' at line 1
+mysql> select * from emp order by e_name dec;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'dec' at line 1
+mysql> select * from emp order by e_name desc;
++------+---------+-------+----------+------------+
+| e_id | e_name  | e_age | e_gender | e_dept     |
++------+---------+-------+----------+------------+
+|    3 | swapnil |    28 | male     | pharmacy   |
+|    6 | swapnil |    28 | male     | pharmacy   |
+|    1 | saurabh |    22 | male     | IT         |
+|    5 | rasika  |    25 | female   | electrical |
+|    7 | raj     |    29 | male     | pharmacy   |
+|    4 | rahul   |    25 | male     | comp       |
+|    2 | bakul   |    25 | male     | en&tc      |
++------+---------+-------+----------+------------+
+7 rows in set (0.00 sec)
+
+mysql> insert into emp values(8,'abhi',68,'male','comp');
+Query OK, 1 row affected (0.18 sec)
+
+mysql> select * from emp;
++------+---------+-------+----------+------------+
+| e_id | e_name  | e_age | e_gender | e_dept     |
++------+---------+-------+----------+------------+
+|    1 | saurabh |    22 | male     | IT         |
+|    2 | bakul   |    25 | male     | en&tc      |
+|    3 | swapnil |    28 | male     | pharmacy   |
+|    4 | rahul   |    25 | male     | comp       |
+|    5 | rasika  |    25 | female   | electrical |
+|    6 | swapnil |    28 | male     | pharmacy   |
+|    7 | raj     |    29 | male     | pharmacy   |
+|    8 | abhi    |    68 | male     | comp       |
++------+---------+-------+----------+------------+
+8 rows in set (0.05 sec)
+
+mysql> select * from emp order by e_name;
++------+---------+-------+----------+------------+
+| e_id | e_name  | e_age | e_gender | e_dept     |
++------+---------+-------+----------+------------+
+|    8 | abhi    |    68 | male     | comp       |
+|    2 | bakul   |    25 | male     | en&tc      |
+|    4 | rahul   |    25 | male     | comp       |
+|    7 | raj     |    29 | male     | pharmacy   |
+|    5 | rasika  |    25 | female   | electrical |
+|    1 | saurabh |    22 | male     | IT         |
+|    3 | swapnil |    28 | male     | pharmacy   |
+|    6 | swapnil |    28 | male     | pharmacy   |
++------+---------+-------+----------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select e_gender from emp where e_gender is null;
+Empty set (0.00 sec)
+
+mysql> select e_gender from emp where e_gender is not null;
++----------+
+| e_gender |
++----------+
+| male     |
+| male     |
+| male     |
+| male     |
+| female   |
+| male     |
+| male     |
+| male     |
++----------+
+8 rows in set (0.00 sec)
+
+mysql> select e_name from emp where e_name is not null;
++---------+
+| e_name  |
++---------+
+| saurabh |
+| bakul   |
+| swapnil |
+| rahul   |
+| rasika  |
+| swapnil |
+| raj     |
+| abhi    |
++---------+
+8 rows in set (0.00 sec)
+
+mysql> update emp set e_name='abc' where e_id=2;
+Query OK, 1 row affected (0.19 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from emp;
++------+---------+-------+----------+------------+
+| e_id | e_name  | e_age | e_gender | e_dept     |
++------+---------+-------+----------+------------+
+|    1 | saurabh |    22 | male     | IT         |
+|    2 | abc     |    25 | male     | en&tc      |
+|    3 | swapnil |    28 | male     | pharmacy   |
+|    4 | rahul   |    25 | male     | comp       |
+|    5 | rasika  |    25 | female   | electrical |
+|    6 | swapnil |    28 | male     | pharmacy   |
+|    7 | raj     |    29 | male     | pharmacy   |
+|    8 | abhi    |    68 | male     | comp       |
++------+---------+-------+----------+------------+
+8 rows in set (0.03 sec)
+
+mysql> update emp set e_name='prerana' ,e_dept='IT' where e_id=5;
+Query OK, 1 row affected (0.12 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from emp;
++------+---------+-------+----------+----------+
+| e_id | e_name  | e_age | e_gender | e_dept   |
++------+---------+-------+----------+----------+
+|    1 | saurabh |    22 | male     | IT       |
+|    2 | abc     |    25 | male     | en&tc    |
+|    3 | swapnil |    28 | male     | pharmacy |
+|    4 | rahul   |    25 | male     | comp     |
+|    5 | prerana |    25 | female   | IT       |
+|    6 | swapnil |    28 | male     | pharmacy |
+|    7 | raj     |    29 | male     | pharmacy |
+|    8 | abhi    |    68 | male     | comp     |
++------+---------+-------+----------+----------+
+8 rows in set (0.00 sec)
+
+mysql> delete from emp where e_id=3;
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from emp;
++------+---------+-------+----------+----------+
+| e_id | e_name  | e_age | e_gender | e_dept   |
++------+---------+-------+----------+----------+
+|    1 | saurabh |    22 | male     | IT       |
+|    2 | abc     |    25 | male     | en&tc    |
+|    4 | rahul   |    25 | male     | comp     |
+|    5 | prerana |    25 | female   | IT       |
+|    6 | swapnil |    28 | male     | pharmacy |
+|    7 | raj     |    29 | male     | pharmacy |
+|    8 | abhi    |    68 | male     | comp     |
++------+---------+-------+----------+----------+
+7 rows in set (0.03 sec)
+
+mysql> delete from emp where e_dept='pharmacy';
+Query OK, 2 rows affected (0.19 sec)
+
+mysql> select * from emp;
++------+---------+-------+----------+--------+
+| e_id | e_name  | e_age | e_gender | e_dept |
++------+---------+-------+----------+--------+
+|    1 | saurabh |    22 | male     | IT     |
+|    2 | abc     |    25 | male     | en&tc  |
+|    4 | rahul   |    25 | male     | comp   |
+|    5 | prerana |    25 | female   | IT     |
+|    8 | abhi    |    68 | male     | comp   |
++------+---------+-------+----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select top 2 from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '2 from emp' at line 1
+mysql> select top 2 * from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '2 * from emp' at line 1
+mysql> select TOP 3 * from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '3 * from emp' at line 1
+mysql> select e_name from emp where e_age>23 limit 3;
++---------+
+| e_name  |
++---------+
+| abc     |
+| rahul   |
+| prerana |
++---------+
+3 rows in set (0.00 sec)
+
+mysql> select e_name from emp where e_age>23 limit 4;
++---------+
+| e_name  |
++---------+
+| abc     |
+| rahul   |
+| prerana |
+| abhi    |
++---------+
+4 rows in set (0.00 sec)
+
+mysql> select e_name from emp where e_age>23 limit ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select e_name from emp where e_age>23 limit1 ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'limit1' at line 1
+mysql> select e_name from emp where e_age>23 limit 1 ;
++--------+
+| e_name |
++--------+
+| abc    |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp fetch first 2 rows only;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'fetch first 2 rows only' at line 1
+mysql> select * from rmp limit 2;
+ERROR 1146 (42S02): Table 'xyz.rmp' doesn't exist
+mysql> select * from emp limit 2;
++------+---------+-------+----------+--------+
+| e_id | e_name  | e_age | e_gender | e_dept |
++------+---------+-------+----------+--------+
+|    1 | saurabh |    22 | male     | IT     |
+|    2 | abc     |    25 | male     | en&tc  |
++------+---------+-------+----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from emp limit 4;
++------+---------+-------+----------+--------+
+| e_id | e_name  | e_age | e_gender | e_dept |
++------+---------+-------+----------+--------+
+|    1 | saurabh |    22 | male     | IT     |
+|    2 | abc     |    25 | male     | en&tc  |
+|    4 | rahul   |    25 | male     | comp   |
+|    5 | prerana |    25 | female   | IT     |
++------+---------+-------+----------+--------+
+4 rows in set (0.00 sec)
+
+mysql> backup database emp to disk ='E:\mysql';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'backup database emp to disk ='E:\mysql'' at line 1
+mysql> backup database emp to disk ='E:\mysql\emp.bak';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'backup database emp to disk ='E:\mysql\emp.bak'' at line 1
+mysql> backup database emp to disk ='E:\mysql\emp.csv';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'backup database emp to disk ='E:\mysql\emp.csv'' at line 1
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> backup database emp to disk ='E:\mysql\emp.csv';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'backup database emp to disk ='E:\mysql\emp.csv'' at line 1
+mysql> backup database emp to disk ='E:\mysql\emp.csv';
